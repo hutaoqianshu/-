@@ -39,15 +39,6 @@ async def show_menu(event, match):
     """显示功能菜单"""
     saying = await get_saying()
     
-    # 先下载图片再发送
-    image_bytes = await download_image("https://imgapi.xl0408.top/index.php")
-    if image_bytes:
-        await event.reply_image(image_bytes, "")
-    else:
-        await event.reply(saying)
-        return
-    
-    # 再发送每日一言和按钮
     buttons = [
         [
             {"text": "🔍 查询功能", "data": "查询功能", "type": 2},
@@ -61,6 +52,7 @@ async def show_menu(event, match):
         ],
     ]
     
+    # 直接发送每日一言和按钮
     await event.reply(saying, buttons=buttons)
 
 
