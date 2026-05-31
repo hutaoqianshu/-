@@ -40,7 +40,7 @@ async def show_menu(event, match):
     saying = await get_saying()
     
     # 先下载图片再发送
-    image_bytes = await download_image("https://t.alcy.cc/")
+    image_bytes = await download_image("https://imgapi.xl0408.top/index.php")
     if image_bytes:
         await event.reply_image(image_bytes, "")
     else:
