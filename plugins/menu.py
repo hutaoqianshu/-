@@ -27,9 +27,11 @@ async def show_menu(event, match):
     """显示功能菜单"""
     saying = await get_saying()
     
-    # 组合消息内容：图片 + 每日一言
+    # 先发送图片 + 每日一言
     message = f"[CQ:image,file=https://t.alcy.cc/]\n\n{saying}"
+    await event.reply(message)
     
+    # 然后发送带按钮的菜单
     buttons = [
         [
             {"text": "🎮 王者功能", "data": "王者功能", "type": 2},
@@ -53,7 +55,7 @@ async def show_menu(event, match):
         ],
     ]
     
-    await event.reply(message, buttons=buttons)
+    await event.reply("请选择你需要的功能：", buttons=buttons)
 
 
 @handler(r'^王者功能$', name='王者功能', desc='王者功能')
