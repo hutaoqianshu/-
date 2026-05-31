@@ -28,7 +28,7 @@ async def show_menu(event, match):
     saying = await get_saying()
     
     # 组合消息内容：图片 + 每日一言
-    message = f"[CQ:image,file=https://t.alcy.cc/]\n\n{saying}"
+    message = f"[CQ:image,file=https://t.alcy.cc/]\n\n✨ 每日一言\n{saying}\n\n📋 功能菜单\n\n请选择你需要的功能："
     
     buttons = [
         [
