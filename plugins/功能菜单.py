@@ -52,16 +52,12 @@ async def show_menu(event, match):
         ],
     ]
     
-    # 先尝试发送图片（如果图片发送失败也不影响）
+    # 尝试用 ark24 卡片（文本+图片）
     try:
-        image_bytes = await download_image("https://imgapi.xl0408.top/index.php")
-        if image_bytes:
-            await event.reply_image(image_bytes, "")
+        await event.reply_ark(24, ("提示", "功能菜单", "", saying, "https://imgapi.xl0408.top/index.php", "", "图片"), buttons=buttons)
     except Exception:
-        pass
-    
-    # 再发送每日一言和按钮
-    await event.reply(saying, buttons=buttons)
+        # 如果 ark 发送失败，回退到文字+按钮
+        await event.reply(saying, buttons=buttons)
 
 
 @handler(r'^查询功能$', name='查询功能', desc='查询功能')
