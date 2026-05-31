@@ -22,13 +22,30 @@ async def get_saying():
     return '今天也要开心哦！'
 
 
+async def download_image(url):
+    """下载图片为字节流"""
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=10) as resp:
+                if resp.status == 200:
+                    return await resp.read()
+    except Exception:
+        pass
+    return None
+
+
 @handler(r'^/?菜单$', name='功能菜单', desc='显示功能菜单', priority=10)
 async def show_menu(event, match):
     """显示功能菜单"""
     saying = await get_saying()
     
-    # 先发送图片
-    await event.reply_image("https://t.alcy.cc/", "")
+    # 先下载图片再发送
+    image_bytes = await download_image("https://t.alcy.cc/")
+    if image_bytes:
+        await event.reply_image(image_bytes, "")
+    else:
+        await event.reply(saying)
+        return
     
     # 再发送每日一言和按钮
     buttons = [
