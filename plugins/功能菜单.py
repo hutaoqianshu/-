@@ -52,7 +52,15 @@ async def show_menu(event, match):
         ],
     ]
     
-    # 直接发送每日一言和按钮
+    # 先尝试发送图片（如果图片发送失败也不影响）
+    try:
+        image_bytes = await download_image("https://imgapi.xl0408.top/index.php")
+        if image_bytes:
+            await event.reply_image(image_bytes, "")
+    except Exception:
+        pass
+    
+    # 再发送每日一言和按钮
     await event.reply(saying, buttons=buttons)
 
 
